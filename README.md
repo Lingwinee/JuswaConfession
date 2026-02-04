@@ -1,4 +1,4 @@
 # JuswaConfession
 A website made for Juswa to confess.
 
-[Link](https://lingwinee.github.io/JuswaConfession/)
+[View the Website Live](https://lingwinee.github.io/JuswaConfession/)
