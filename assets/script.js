@@ -281,25 +281,24 @@ function sendResponse() {
 
 // --- PHOTO TILT (Mouse & Gyro) ---
 function initGyroTilt() {
-    const card = document.getElementById('hero-card');
+    // TARGET THE WRAPPER, NOT THE CARD
+    const wrapper = document.getElementById('tilt-wrapper');
     
     // Mouse Tilt (Desktop)
     document.addEventListener('mousemove', (e) => {
         const x = (window.innerWidth / 2 - e.pageX) / 30;
         const y = (window.innerHeight / 2 - e.pageY) / 30;
-        card.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg)`;
+        
+        // Apply transform to the wrapper. 
+        wrapper.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg)`;
     });
 
     // Gyro Tilt (Mobile)
     window.addEventListener('deviceorientation', (e) => {
-        // Only run if the device actually reports orientation
         if(e.gamma !== null && e.beta !== null) {
-            // Gamma: left-to-right tilt (-90 to 90)
-            // Beta: front-to-back tilt (-180 to 180)
             const x = e.gamma / 3; 
-            // Subtracting 20 because users typically hold phones tilted slightly up
             const y = (e.beta / 3) - 20; 
-            card.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg)`;
+            wrapper.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg)`;
         }
     });
 }
@@ -324,3 +323,4 @@ function toggleMusic() {
 
 
 function resetApp() { location.reload(); }
+
