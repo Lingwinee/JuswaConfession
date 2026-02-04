@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>My Letter for You</title>
+    
+    <!-- External Libraries (CDNs) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="bg-gradient-to-b from-pink-50 via-rose-100 to-pink-200 min-h-screen overflow-hidden text-gray-800 relative select-none">
+
+    <!-- Audio Player -->
+    <audio id="bg-music" loop>
+        <source src="assets/music.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- Falling Petals Container -->
+    <div id="petals-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- VIEW 1: INTRO -->
+    <div id="view-intro" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-pink-50 transition-opacity duration-700">
+        <div class="relative w-32 h-32 flex items-center justify-center cursor-pointer" onclick="startExperience()">
+            <div class="absolute inset-0 bg-rose-300 rounded-full opacity-20 animate-ping"></div>
+            <div class="absolute inset-4 bg-rose-400 rounded-full opacity-30 animate-pulse"></div>
+            <div class="relative z-10 text-rose-500 text-5xl transform transition hover:scale-110 duration-300">💌</div>
+        </div>
+        <p class="mt-8 font-serif text-rose-800 text-xl tracking-widest animate-bounce">A Letter for You</p>
+        <p class="text-xs text-rose-400 mt-2 font-sans">Tap to open</p>
+    </div>
+
+    <!-- VIEW 2: THE ENVELOPE -->
+    <div id="view-envelope" class="hidden fixed inset-0 z-40 flex flex-col items-center justify-center p-4 pointer-events-none">
+        <h2 class="font-hand text-5xl text-rose-800 mb-12 drop-shadow-sm opacity-0 text-center leading-tight" id="env-title">For ####### #####</h2> <!-- Frances Liane -->
+
+        <div class="envelope-wrapper relative w-72 h-48 cursor-pointer pointer-events-auto" onclick="openLetter()">
+            <div id="envelope-obj" class="envelope relative w-full h-full bg-rose-500 rounded-b-lg shadow-2xl">
+                <!-- Flap -->
+                <div class="flap absolute top-0 left-0 w-full h-full z-20 origin-top">
+                    <div class="w-0 h-0 border-l-[144px] border-l-transparent border-r-[144px] border-r-transparent border-t-[140px] border-t-rose-600 rounded-lg"></div>
+                </div>
+                <!-- Pocket -->
+                <div class="absolute bottom-0 left-0 w-full h-full bg-rose-400 z-10 rounded-b-lg border-t-[20px] border-rose-400/20 flex flex-col justify-end items-center pb-4">
+                    <p class="font-hand text-white text-lg opacity-90 z-30">From: Joshua Salvador</p>
+                </div>
+                <!-- Letter Preview -->
+                <div class="letter-preview absolute top-2 left-2 right-2 h-[90%] bg-white rounded-lg shadow-md flex items-start justify-center pt-4 z-0">
+                    <p class="font-hand text-2xl text-gray-400">Open me...</p>
+                </div>
+                <!-- Wax Seal -->
+                <div class="flap-seal absolute top-[60px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 w-12 h-12 bg-red-800 rounded-full flex items-center justify-center shadow-lg border-2 border-red-900/50">
+                    <span class="text-white font-serif italic text-xl">J</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 3: MAIN CONTENT -->
+    <div id="view-content" class="hidden fixed inset-0 z-30 overflow-y-auto overflow-x-hidden bg-white/30 backdrop-blur-md">
+        
+        <div class="relative w-full max-w-lg mx-auto min-h-screen p-6 pb-32">
+            
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-6 sticky top-0 z-50 p-2 glass rounded-full px-4 mt-2">
+                <span class="font-hand text-2xl text-rose-600 font-bold">My letter for you</span>
+                <button id="music-btn" onclick="toggleMusic()" class="relative w-8 h-8 rounded-full bg-white text-rose-500 flex items-center justify-center shadow-sm hover:bg-rose-50 transition">🎵</button>
+            </div>
+
+            <!-- 1. The Photo -->
+            <div class="perspective-container w-full aspect-[4/5] mb-8 flex justify-center">
+                <div id="hero-card" class="breathing photo-card relative w-full h-full rounded-xl shadow-2xl overflow-hidden border-[8px] border-white bg-white transform transition-transform duration-100">
+                    <!-- IMAGE SOURCE: Pointing to assets folder -->
+                    <img id="joshua-photo" src="assets/Juswa1.jpg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1000&auto=format&fit=crop'; document.getElementById('img-fallback').style.display='flex';" class="w-full h-full object-cover">
+                    
+                    <div id="img-fallback" class="hidden absolute inset-0 bg-gray-900/80 flex-col items-center justify-center text-white z-50">
+                        <p class="mb-2 text-sm font-sans">Photo Missing</p>
+                        <!-- Note: File upload input removed as we expect assets on server -->
+                        <p class="text-xs text-gray-300">Check assets folder</p>
+                    </div>
+
+                    <div class="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/50 to-transparent">
+                        <p class="text-white font-hand text-3xl text-center shadow-black drop-shadow-md">Joshua</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. The Letter -->
+            <div class="glass rounded-2xl p-8 shadow-lg mb-10 relative">
+                <div class="absolute -top-4 -left-4 text-6xl opacity-20 text-rose-500">❝</div>
+                <h2 class="font-serif text-3xl text-rose-900 mb-4 text-center italic">My Dearest #######,</h2> <!-- Frances -->
+                
+                <div id="typewriter-text" class="font-serif text-xl text-gray-800 leading-relaxed min-h-[200px]"></div>
+                <div class="absolute -bottom-8 -right-2 text-6xl opacity-20 transform rotate-180 text-rose-500">❝</div>
+            </div>
+
+            <!-- 3. Interactive: Infinite Card Loop -->
+            <div class="mb-12 relative h-56">
+                <p class="text-center font-sans text-xs text-rose-600 uppercase tracking-widest mb-4 opacity-70">Reasons I Love You • Tap to Swipe</p>
+                <div id="card-stack" class="relative w-64 h-40 mx-auto cursor-pointer perspective-1000" onclick="swipeCard()"></div>
+            </div>
+
+            <!-- 4. Scratch Card -->
+            <div class="mb-12 text-center relative">
+                <p class="font-sans text-xs text-rose-500 mb-2 uppercase tracking-widest opacity-70">A Hidden Secret</p>
+                <div class="relative w-64 h-32 mx-auto rounded-xl overflow-hidden shadow-lg transform rotate-1 hover:rotate-0 transition bg-white border-4 border-white">
+                    <div class="absolute inset-0 flex items-center justify-center bg-rose-100">
+                        <p class="font-hand text-3xl text-rose-600 font-bold">You are my Favorite.</p>
+                    </div>
+                    <canvas id="scratch-pad" width="256" height="128" class="absolute inset-0 z-10 cursor-crosshair"></canvas>
+                </div>
+            </div>
+
+            <!-- 5. The Question -->
+            <div class="glass rounded-3xl p-8 text-center border-2 border-rose-100 shadow-2xl mb-8 relative overflow-hidden">
+                <h3 class="font-serif text-3xl text-gray-800 mb-2">####### ##### ##########</h3> <!-- Frances Liane Villaerte -->
+                <p class="font-hand text-4xl text-rose-600 mb-8">Will you be my Valentine?</p>
+                
+                <div class="relative h-48 w-full flex flex-col justify-center items-center gap-4" id="btn-container">
+                    <button onclick="sayYes()" class="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-sans font-bold py-4 px-12 rounded-full shadow-lg transform transition hover:scale-105 active:scale-95 z-20 text-lg">
+                        YES!
+                    </button>
+                    <button id="no-btn" class="bg-white text-gray-400 font-sans font-bold py-2 px-8 rounded-full shadow-sm z-10 border border-gray-200 text-sm absolute bottom-4 transition-all duration-100 ease-out">
+                        No
+                    </button>
+                </div>
+            </div>
+            
+            <div class="text-center pb-8 opacity-50">
+                <p class="font-sans text-xs">Made with ❤️ for You</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 4: SUCCESS TICKET -->
+    <div id="view-success" class="hidden fixed inset-0 z-[100] bg-black/80 flex flex-col items-center justify-center text-center p-4 backdrop-blur-sm">
+        <h1 class="font-hand text-6xl text-rose-300 mb-8 scale-0 drop-shadow-lg" id="success-title">It's a Date!</h1>
+        
+        <div id="ticket" class="w-full max-w-sm bg-white rounded-lg overflow-hidden shadow-2xl transform translate-y-20 opacity-0 relative">
+            <div class="bg-rose-500 p-6 text-white text-center relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-full opacity-10" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMiIgZmlsbD0id2hpdGUiLz48L3N2Zz4=')"></div>
+                <h2 class="font-serif text-3xl italic mb-1">Valentine's Day</h2>
+                <p class="font-sans text-xs tracking-widest uppercase opacity-80">Official Invitation</p>
+                <div class="mt-4 border-t border-white/30 pt-4">
+                    <p class="font-hand text-4xl">Joshua & Frances</p>
+                </div>
+            </div>
+            
+            <div class="relative h-4 bg-rose-500">
+                <div class="absolute -left-2 top-0 w-4 h-4 bg-gray-900 rounded-full"></div>
+                <div class="absolute -right-2 top-0 w-4 h-4 bg-gray-900 rounded-full"></div>
+                <div class="absolute top-1/2 left-0 w-full border-b-2 border-dashed border-white/30"></div>
+            </div>
+
+            <div class="bg-white p-6 text-gray-600 relative">
+                 <div class="flex justify-between items-end">
+                     <div class="text-left">
+                         <p class="text-xs uppercase text-gray-400">Date</p>
+                         <p class="font-serif text-xl font-bold text-gray-800">Feb 14, 2025</p>
+                     </div>
+                     <div class="text-right">
+                         <p class="text-xs uppercase text-gray-400">Admit</p>
+                         <p class="font-serif text-xl font-bold text-gray-800">Two</p>
+                     </div>
+                 </div>
+                 <div class="mt-6 text-center">
+                     <p class="font-hand text-2xl text-rose-500">Dinner, Laughter & Love</p>
+                 </div>
+                 
+                 <div class="mt-6 pt-6 border-t border-gray-100">
+                     <button onclick="sendResponse()" class="w-full bg-[#0084FF] hover:bg-[#006bcf] text-white font-sans font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md">
+                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.505 2 2 6.13 2 11.43c0 2.96 1.48 5.6 3.79 7.33v3.74c0 .38.39.63.71.45l2.76-1.53c.85.24 1.74.37 2.66.37 5.49 0 10-4.13 10-9.43S17.49 2 12 2zm1.09 12.38l-2.6-2.76-5.07 2.76 5.56-5.92 2.63 2.76 5.04-2.75-5.56 5.91z"/></svg>
+                         Send "Yes" to Joshua
+                     </button>
+                 </div>
+            </div>
+        </div>
+
+        <button onclick="resetApp()" class="mt-12 text-white/50 hover:text-white underline text-sm font-sans">Replay Memory</button>
+    </div>
+
+    <!-- Local JS -->
+    <script src="assets/script.js"></script>
+</body>
+</html>
