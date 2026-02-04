@@ -276,7 +276,7 @@ function sayYes() {
 function sendResponse() {
     // Opens Facebook Messenger generic link.
     // Joshua should replace this with: https://m.me/USERNAME
-    window.open('https://m.me/', '_blank');
+    window.open('https://www.facebook.com/joshua.salvador.034', '_blank');
 }
 
 // --- PHOTO TILT (Mouse & Gyro) ---
@@ -321,5 +321,6 @@ function toggleMusic() {
         btn.classList.add('music-playing');
     }
 }
+
 
 function resetApp() { location.reload(); }
