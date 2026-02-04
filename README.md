@@ -2,7 +2,7 @@
 
 An interactive, mobile-first web experience designed for a heartfelt Valentine's Day confession. This project features high-end animations, interactive components, and a personalized narrative flow.
 
-![Confession Preview](assets/preview.jpg) 
+![Confession Preview](assets/preview.png) 
 
 ## ✨ Features
 
