@@ -1,7 +1,7 @@
 // --- CONFIGURATION ---
 const poemLines = [
     "There are billions of stars in the sky, but my eyes always find their way to you.",
-    "#######, your laughter is my favorite song, and your happiness is my only wish.", //Frances
+    "Frances, your laughter is my favorite song, and your happiness is my only wish.", //Frances
     "Every moment with you feels like a beautiful dream I never want to wake up from.",
     "I don't need the whole world to love me, I just need you.",
     "So, on this day of love, I have one question..."
@@ -323,4 +323,5 @@ function toggleMusic() {
 
 
 function resetApp() { location.reload(); }
+
 
