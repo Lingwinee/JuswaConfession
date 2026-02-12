@@ -40,7 +40,7 @@
 
     <!-- VIEW 2: THE ENVELOPE -->
     <div id="view-envelope" class="hidden fixed inset-0 z-40 flex flex-col items-center justify-center p-4 pointer-events-none">
-        <h2 class="font-hand text-5xl text-rose-800 mb-12 drop-shadow-sm opacity-0 text-center leading-tight" id="env-title">For Frances Lianne</h2> <!-- Frances Liane -->
+        <h2 class="font-hand text-5xl text-rose-800 mb-12 drop-shadow-sm opacity-0 text-center leading-tight" id="env-title">For [RECIPIENT_SHORT_NAME]</h2> 
 
         <div class="envelope-wrapper relative w-72 h-48 cursor-pointer pointer-events-auto" onclick="openLetter()">
             <div id="envelope-obj" class="envelope relative w-full h-full bg-rose-500 rounded-b-lg shadow-2xl">
@@ -50,7 +50,7 @@
                 </div>
                 <!-- Pocket -->
                 <div class="absolute bottom-0 left-0 w-full h-full bg-rose-400 z-10 rounded-b-lg border-t-[20px] border-rose-400/20 flex flex-col justify-end items-center pb-4">
-                    <p class="font-hand text-white text-lg opacity-90 z-30">From: Joshua Salvador</p>
+                    <p class="font-hand text-white text-lg opacity-90 z-30">From: [SENDER_FULL_NAME]</p>
                 </div>
                 <!-- Letter Preview -->
                 <div class="letter-preview absolute top-2 left-2 right-2 h-[90%] bg-white rounded-lg shadow-md flex items-start justify-center pt-4 z-0">
@@ -80,14 +80,14 @@
             <div id="tilt-wrapper" class="perspective-container w-full aspect-[4/5] mb-8 flex justify-center"> 
                 <div id="hero-card" class="breathing photo-card relative w-full h-full rounded-xl shadow-2xl overflow-hidden border-[8px] border-white bg-white">
                     <!-- IMAGE SOURCE: Pointing to assets folder -->
-                    <img id="joshua-photo" src="assets/juswa.jpg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1000&auto=format&fit=crop'; document.getElementById('img-fallback').style.display='flex';" class="w-full h-full object-cover">
+                    <img id="joshua-photo" src="assets/Juswa.jpg" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1000&auto=format&fit=crop'; document.getElementById('img-fallback').style.display='flex';" class="w-full h-full object-cover">
                     <div id="img-fallback" class="hidden absolute inset-0 bg-gray-900/80 flex-col items-center justify-center text-white z-50">
                         <p class="mb-2 text-sm font-sans">Photo Missing</p>
                         <p class="text-xs text-gray-300">Check assets folder</p>
                     </div>
 
                     <div class="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/50 to-transparent">
-                        <p class="text-white font-hand text-3xl text-center shadow-black drop-shadow-md">Joshua</p>
+                        <p class="text-white font-hand text-3xl text-center shadow-black drop-shadow-md">[SENDER_FIRST_NAME]</p>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
             <!-- 2. The Letter -->
             <div class="glass rounded-2xl p-8 shadow-lg mb-10 relative">
                 <div class="absolute -top-4 -left-4 text-6xl opacity-20 text-rose-500">❝</div>
-                <h2 class="font-serif text-3xl text-rose-900 mb-4 text-center italic">My Dearest Frances,</h2> <!-- Frances -->
+                <h2 class="font-serif text-3xl text-rose-900 mb-4 text-center italic">My Dearest [RECIPIENT_FIRST_NAME],</h2> 
                 
                 <div id="typewriter-text" class="font-serif text-xl text-gray-800 leading-relaxed min-h-[200px]"></div>
                 <div class="absolute -bottom-8 -right-2 text-6xl opacity-20 transform rotate-180 text-rose-500">❝</div>
@@ -120,7 +120,7 @@
 
             <!-- 5. The Question -->
             <div class="glass rounded-3xl p-8 text-center border-2 border-rose-100 shadow-2xl mb-8 relative overflow-hidden">
-                <h3 class="font-serif text-3xl text-gray-800 mb-2">Frances Lianne Villaerte</h3> <!-- Frances Liane Villaerte -->
+                <h3 class="font-serif text-3xl text-gray-800 mb-2">[RECIPIENT_FULL_NAME]</h3> 
                 <p class="font-hand text-4xl text-rose-600 mb-8">Will you be my Valentine?</p>
                 
                 <div class="relative h-48 w-full flex flex-col justify-center items-center gap-4" id="btn-container">
@@ -149,7 +149,7 @@
                 <h2 class="font-serif text-3xl italic mb-1">Valentine's Day</h2>
                 <p class="font-sans text-xs tracking-widest uppercase opacity-80">Official Invitation</p>
                 <div class="mt-4 border-t border-white/30 pt-4">
-                    <p class="font-hand text-4xl">Joshua & Frances</p>
+                    <p class="font-hand text-4xl">[SENDER_FIRST_NAME] & [RECIPIENT_FIRST_NAME]</p>
                 </div>
             </div>
             
@@ -177,7 +177,7 @@
                  <div class="mt-6 pt-6 border-t border-gray-100">
                      <button onclick="sendResponse()" class="w-full bg-[#0084FF] hover:bg-[#006bcf] text-white font-sans font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition shadow-md">
                          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.505 2 2 6.13 2 11.43c0 2.96 1.48 5.6 3.79 7.33v3.74c0 .38.39.63.71.45l2.76-1.53c.85.24 1.74.37 2.66.37 5.49 0 10-4.13 10-9.43S17.49 2 12 2zm1.09 12.38l-2.6-2.76-5.07 2.76 5.56-5.92 2.63 2.76 5.04-2.75-5.56 5.91z"/></svg>
-                         Send "Yes" to Joshua
+                         Send "Yes" to [SENDER_FIRST_NAME]
                      </button>
                  </div>
             </div>
@@ -189,12 +189,4 @@
     <!-- Local JS -->
     <script src="assets/script.js"></script>
 </body>
-
 </html>
-
-
-
-
-
-
-
