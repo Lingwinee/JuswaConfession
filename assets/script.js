@@ -1,7 +1,7 @@
 // --- CONFIGURATION ---
 const poemLines = [
     "There are billions of stars in the sky, but my eyes always find their way to you.",
-    "Frances, your laughter is my favorite song, and your happiness is my only wish.", //Frances
+    "[RECIPIENT_FIRST_NAME], your laughter is my favorite song, and your happiness is my only wish.",
     "Every moment with you feels like a beautiful dream I never want to wake up from.",
     "I don't need the whole world to love me, I just need you.",
     "So, on this day of love, I have one question..."
@@ -93,7 +93,7 @@ function startTypewriter() {
 // --- FALLING PETALS EFFECT (IMMEDIATE) ---
 function startPetals() {
     const container = document.getElementById('petals-container');
-    const petalChars = ['🌸', '🌹', '🌺', '✨', '🤍'];
+    const petalChars = ['🌸', '🌺', '🌷', '💮', '🏵️'];
     
     // Create initial batch
     for(let i=0; i<10; i++) spawnPetal();
@@ -274,9 +274,7 @@ function sayYes() {
 }
 
 function sendResponse() {
-    // Opens Facebook Messenger generic link.
-    // Joshua should replace this with: https://m.me/USERNAME
-    window.open('https://m.me/joshua.salvador.034', '_blank');
+    window.open('https://m.me/[MESSENGER_USERNAME]', '_blank');
 }
 
 // --- PHOTO TILT (Mouse & Gyro) ---
@@ -321,8 +319,4 @@ function toggleMusic() {
     }
 }
 
-
 function resetApp() { location.reload(); }
-
-
-
