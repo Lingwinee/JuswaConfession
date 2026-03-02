@@ -274,7 +274,7 @@ function sayYes() {
 }
 
 function sendResponse() {
-    window.open('https://m.me/[MESSENGER_USERNAME]', '_blank');
+    window.open('https://m.me/joshua.salvador.034', '_blank');
 }
 
 // --- PHOTO TILT (Mouse & Gyro) ---
@@ -320,3 +320,4 @@ function toggleMusic() {
 }
 
 function resetApp() { location.reload(); }
+
